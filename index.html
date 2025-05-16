@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indraneel Bose</title> <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        .animated-text-container {
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .animated-text {
+            font-size: 4rem;
+            line-height: 1.2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: relative;
+        }
+        .animated-text.visible {
+            opacity: 1;
+        }
+        .animated-text::before,
+        .animated-text::after {
+            font-family: 'Lora', serif;
+            font-size: 5rem;
+            color: #a0a0a0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-60%);
+        }
+        .animated-text::before {
+            content: '“';
+            left: -40px;
+        }
+        .animated-text::after {
+            content: '”';
+            right: -40px; 
+        }
+        .icon-leaf { 
+            width: 32px;
+            height: 32px;
+            fill: #555;
+        }
+        @media (max-width: 768px) {
+            .animated-text {
+                font-size: 2.5rem;
+            }
+            .animated-text::before,
+            .animated-text::after {
+                font-size: 3rem;
+            }
+            .animated-text::before {
+                left: -25px; 
+            }
+            .animated-text::after {
+                right: -25px; 
+            }
+            nav ul li a {
+                padding: 0.5rem 0.75rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .animated-text {
+                font-size: 1.8rem; 
+            }
+             .animated-text::before,
+            .animated-text::after {
+                font-size: 2.2rem; 
+            }
+            .animated-text::before {
+                left: -20px;
+            }
+            .animated-text::after {
+                right: -20px;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin-bottom: 0.5rem;
+            }
+            h1.font-lora {
+                font-size: 3rem; 
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#f8f8f8] text-gray-800 min-h-screen flex flex-col items-center pt-8 md:pt-16 px-4">
+
+    <header class="w-full max-w-5xl mx-auto mb-12 md:mb-16">
+        <nav>
+            <ul class="flex justify-center space-x-4 md:space-x-8">
+                <li><a href="#home" class="text-gray-600 hover:text-black transition-colors duration-300 py-2 px-3 rounded-md text-sm md:text-base">Home</a></li>
+                <li><a href="#portfolio" class="text-gray-600 hover:text-black transition-colors duration-300 py-2 px-3 rounded-md text-sm md:text-base">Portfolio</a></li>
+                <li><a href="#resume" class="text-gray-600 hover:text-black transition-colors duration-300 py-2 px-3 rounded-md text-sm md:text-base">Resume</a></li>
+                <li><a href="#about" class="text-gray-600 hover:text-black transition-colors duration-300 py-2 px-3 rounded-md text-sm md:text-base">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="text-center max-w-3xl mx-auto flex-grow flex flex-col justify-center">
+        <div class="mb-6 flex justify-center">
+            <svg class="icon-leaf" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2c2.474 0 4.777 1.205 6.288 3.212.314.41.213.983-.197 1.297-.41.314-.983.213-1.297-.197C15.663 4.804 13.905 4 12 4s-3.663.804-4.794 2.312c-.314.41-.887.51-1.297.197-.41-.314-.51-.887-.197-1.297C7.223 3.205 9.526 2 12 2zm0 4c1.31 0 2.518.478 3.492 1.288.406.33.96.234 1.29-.172.33-.405.235-.96-.172-1.29C15.394 5.016 13.754 4.4 12 4.4s-3.393.616-4.61 1.426c-.407.33-.5.885-.172 1.29.328.406.884.502 1.29.172C9.482 6.478 10.69 6 12 6zm-.707 14.707a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L13 16.414V21a1 1 0 01-2 0v-4.586l-1.707 1.707zM12 8c-.479 0-.937.123-1.33.343-.415.23-.94.03-1.17-.385-.23-.415-.03-.94.384-1.17C10.63.983 11.3.8 12 .8s1.37.183 2.116.588c.415.23.615.755.385 1.17-.23.415-.755.615-1.17.385C12.937 8.123 12.479 8 12 8z"/>
+                <path d="M17.657 10.343a1 1 0 00-1.414-1.414L12 13.172l-4.243-4.243a1 1 0 10-1.414 1.414L10.586 14 7.05 17.536a1 1 0 001.414 1.414L12 15.414l3.536 3.536a1 1 0 001.414-1.414L13.414 14l4.243-3.657z"/>
+            </svg>
+        </div>
+
+        <h1 class="font-lora text-5xl md:text-6xl font-medium mb-6 md:mb-8">
+            Indraneel Bose </h1>
+
+        <div class="animated-text-container mb-8 md:mb-10">
+            <p id="animatedText" class="animated-text font-lora">
+                </p>
+        </div>
+
+        <div class="max-w-xl mx-auto text-base md:text-lg leading-relaxed text-gray-700">
+            <p class="mb-4">
+                Greetings, I'm Neel a Sophomore CS Undergraduate crazy for tech gadgets, Blockchain, Concepts of AI & ML and ethical
+                technology. With a background in technology and Data Science, I enjoy
+                combining good user experiences with high technical value. Currently a AI Analyst at GolfAi
+                and more recently contributed myself for our website {golfai.in} </p>
+            <p>
+                Beyond my professional endeavors, I find joy in listening music, creating art
+                and outdoor adventures. Feel free to explore my portfolio. </p>
+        </div>
+    </main>
+
+    <footer class="w-full max-w-5xl mx-auto py-8 text-center text-gray-500 text-sm">
+        <p>&copy; <span id="currentYear"></span> Indraneel Bose. All rights reserved.</p> </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedTextElement = document.getElementById('animatedText');
+            const personalityTexts = [
+                "Tech Savvy",
+                "Data Analyst",
+                "Gamer",
+                "Narcissist"
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            const typingSpeed = 100; 
+            const eraseSpeed = 50;  
+            const delayBetweenWords = 2000;
+
+            function typeText() {
+                if (charIndex < personalityTexts[textIndex].length) {
+                    animatedTextElement.textContent += personalityTexts[textIndex].charAt(charIndex);
+                    charIndex++;
+                    animatedTextElement.classList.add('visible'); 
+                    setTimeout(typeText, typingSpeed);
+                } else {
+                    setTimeout(eraseText, delayBetweenWords);
+                }
+            }
+
+            function eraseText() {
+                if (charIndex > 0) {
+                    animatedTextElement.textContent = personalityTexts[textIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(eraseText, eraseSpeed);
+                } else {
+                    animatedTextElement.classList.remove('visible'); 
+                    textIndex = (textIndex + 1) % personalityTexts.length;
+                    setTimeout(typeText, 500);
+                }
+            }
+
+            if (personalityTexts.length > 0) {
+                setTimeout(typeText, 500); 
+            } else {
+                animatedTextElement.textContent = "Welcome"; 
+                animatedTextElement.classList.add('visible');
+            }
+
+            const currentYearElement = document.getElementById('currentYear');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+</body>
+</html>
