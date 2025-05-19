@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Indraneel Bose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0; /* Light gray background, similar to reference image */
+            color: #333333; /* Standard dark text color */
+            overflow-x: hidden;
+        }
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        nav a {
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            color: #555555; /* Consistent nav link color */
+            transition: color 0.3s ease;
+        }
+        nav a:hover { color: #000000; }
+
+        .resume-container {
+            background-color: #ffffff; /* White paper background for resume */
+            max-width: 800px; /* Standard A4-like width */
+            margin: 2rem auto; /* Centering and spacing */
+            padding: 3rem 2.5rem; /* Padding inside the resume paper */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            border-radius: 0.25rem; /* Slight rounding of corners */
+        }
+
+        .resume-header h1 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem; /* Large name */
+            font-weight: 600;
+            color: #222;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .resume-header .contact-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .resume-header .contact-info a {
+            color: #1e90ff; /* Link color */
+            text-decoration: none;
+        }
+        .resume-header .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .resume-section {
+            margin-bottom: 2rem;
+        }
+        .resume-section h2 {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .resume-item {
+            margin-bottom: 1.25rem;
+        }
+        .resume-item h3 {
+            font-size: 1.125rem; /* Job title / Degree */
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 0.1rem;
+        }
+        .resume-item .subheading { /* Institution / Company & Location */
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.25rem;
+        }
+        .resume-item .dates { /* Dates */
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+        .resume-item ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+            padding-left: 0.5rem;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .resume-item ul li {
+            margin-bottom: 0.3rem;
+        }
+        .skills-list {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .skills-list strong {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .download-button-container {
+            text-align: center;
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .download-button {
+            display: inline-block;
+            background-color: #222222; /* Dark button as in reference */
+            color: #ffffff;
+            padding: 0.75rem 2rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .download-button:hover {
+            background-color: #444444;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .resume-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+            .resume-header h1 { font-size: 2rem; }
+            .resume-section h2 { font-size: 1.25rem; }
+            .resume-item h3 { font-size: 1rem; }
+        }
+         @media (max-width: 480px) {
+            nav a { font-size: 0.75rem; padding: 0.5rem 0.5rem;}
+            .resume-container {
+                padding: 1.5rem 1rem;
+            }
+             .resume-header h1 { font-size: 1.8rem; }
+             .resume-header .contact-info { font-size: 0.85rem; }
+             .resume-section h2 { font-size: 1.1rem; }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pt-8 md:pt-12">
+
+    <header class="w-full max-w-5xl mx-auto mb-10 md:mb-16 px-4">
+        <nav>
+            <ul class="flex justify-center space-x-2 md:space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="#">Resume</a></li> <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center w-full">
+        <div class="resume-container">
+            <header class="resume-header">
+                <h1>INDRANEEL BOSE</h1>
+                <div class="contact-info">
+                    New Barrackpore Kolkata, WB-700131 |
+                    <a href="mailto:indraneel2312res957@iitp.ac.in">indraneel2312res957@iitp.ac.in</a> |
+                    +91 6291822142
+                </div>
+            </header>
+
+            <section class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-item">
+                    <h3>BS Computer Science & Data Analytics</h3>
+                    <p class="subheading">Indian Institute Of Technology Patna, Patna, IN</p>
+                    <p class="dates">2023 - Present</p>
+                    <ul>
+                        <li>Relevant Coursework: Data Science, Mathematical Computation, Machine Learning.</li>
+                    </ul>
+                </div>
+                <div class="resume-item">
+                    <h3>Class X & Class XII in Computer Science</h3>
+                    <p class="subheading">Rose Bank Edu-Care High School, Kolkata, IN</p>
+                    <p class="dates">2021-2023</p>
+                </div>
+            </section>
+
+            <section class="resume-section">
+                <h2>Experience</h2>
+                <div class="resume-item">
+                    <h3>Data Analyst Intern</h3>
+                    <p class="subheading">To-Let Globe, Lucknow, UP (Hybrid)</p>
+                    <p class="dates">Apr 2024 - Sep 2024</p>
+                    <ul>
+                        <li>Utilized data cleaning and transformation techniques to prepare large datasets for analysis, improving reporting efficiency by 25%.</li>
+                        <li>Developed interactive dashboards and visualizations using tools like Excel and Power BI to support strategic decision-making for rental property trends.</li>
+                        <li>Collaborated with cross-functional teams to identify key performance indicators (KPIs) and provide actionable insights to enhance user engagement and operational efficiency.</li>
+                    </ul>
+                </div>
+                <div class="resume-item">
+                    <h3>Associate Intern</h3>
+                    <p class="subheading">TradeShala, Remote</p>
+                    <p class="dates">Nov 2023 - Feb 2024</p>
+                    <ul>
+                        <li>Assisted in market research and financial analysis to support investment strategies, contributing to a 10% improvement in portfolio performance tracking.</li>
+                        <li>Coordinated with senior analysts to prepare reports on trading trends and risk assessments, enhancing data-driven decision-making processes.</li>
+                        <li>Supported the development of educational content and webinars, helping over 500 users better understand trading fundamentals and market behaviour.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="resume-section">
+                <h2>Skills & Interests</h2>
+                <div class="skills-list">
+                    <p><strong>Technical:</strong> Java, Python, C, HTML, CSS, Javascript</p>
+                    <p><strong>Language:</strong> English (C2), Hindi (C2), Bengali (C2)</p>
+                    <p><strong>Laboratory:</strong> Pandas and Numpy Libraries and LLM Modules (Llama)</p>
+                    <p><strong>Interests:</strong> Astronomy, LAN Gaming.</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="download-button-container">
+            <a href="Indraneelbose CV.pdf" download="Indraneel_Bose_CV.pdf" class="download-button">Download Resume</a>
+        </div>
+    </main>
+
+    <footer class="w-full max-w-5xl mx-auto py-10 md:py-16 text-center text-gray-600 text-sm px-4"> <p>&copy; <span id="currentYear"></span> Indraneel Bose. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Current Year ---
+            const currentYearElement = document.getElementById('currentYear');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+</body>
+</html>

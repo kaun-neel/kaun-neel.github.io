@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Indraneel Bose</title> <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Styles for Portfolio Page */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111; /* Dark background for the entire portfolio page */
+            color: #e0e0e0; /* Light text color */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        nav a {
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            color: #aaaaaa; /* Lighter nav links for dark page */
+            transition: color 0.3s ease;
+        }
+        nav a:hover { color: #ffffff; }
+
+        /* Dark Section Styling (reused for consistency) */
+        .dark-section {
+            background-color: #111111;
+            color: #e0e0e0;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            width: 100%;
+        }
+        .dark-section-animated-text { /* For "Portfolio" title */
+            font-size: 2.5rem;
+            line-height: 1.2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: relative;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+        .dark-section-animated-text.visible { opacity: 1; }
+        .dark-section-animated-text::before,
+        .dark-section-animated-text::after {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            color: #666666;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-55%);
+        }
+        .dark-section-animated-text::before { content: '“'; left: -25px; }
+        .dark-section-animated-text::after { content: '”'; right: -25px; }
+
+        /* Portfolio Intro & Logos (copied from previous version) */
+        #portfolio-title-container {
+            min-height: 80px; display: flex; justify-content: center;
+            align-items: center; margin-bottom: 1.5rem;
+        }
+        .portfolio-intro-text {
+            max-width: 700px; margin-left: auto; margin-right: auto;
+            font-size: 1rem; line-height: 1.6;
+            color: #cccccc; margin-bottom: 3rem; text-align: center;
+        }
+        .portfolio-logos {
+            display: flex; justify-content: center; align-items: center;
+            gap: 2rem 4rem; flex-wrap: wrap;
+            margin-bottom: 4rem; padding: 0 1rem;
+        }
+        .portfolio-logos span { /* Placeholder for text logos */
+            font-family: 'Lora', serif; font-size: 1.5rem;
+            color: #888888; font-weight: 500;
+        }
+
+        /* Case Study Styles */
+        .case-study-item {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column on small screens */
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 5rem; /* Space between case studies */
+            padding-bottom: 3rem;
+            border-bottom: 1px solid #333; /* Separator line */
+        }
+        .case-study-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .case-study-content h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.25rem; /* 36px */
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        .case-study-content .role {
+            font-size: 1.125rem; /* 18px */
+            color: #bbbbbb;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .case-study-content .description {
+            font-size: 1rem; /* 16px */
+            line-height: 1.7;
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+        .case-study-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .case-study-tags span {
+            background-color: #2a2a2a;
+            color: #a0a0a0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem; /* 12px */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .case-study-button {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #111111;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 0.875rem;
+        }
+        .case-study-button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .case-study-image-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: #252525; /* Placeholder background */
+            aspect-ratio: 16 / 10; /* Or adjust as needed */
+        }
+        .case-study-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Animation Classes for on-scroll reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive adjustments for Case Studies */
+        @media (min-width: 768px) { /* md breakpoint */
+            .case-study-item {
+                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+            }
+            /* Alternate image/text order for visual variety */
+            .case-study-item:nth-child(even) .case-study-content {
+                order: 2;
+            }
+            .case-study-item:nth-child(even) .case-study-image-container {
+                order: 1;
+            }
+            .case-study-content h2 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) { /* md */
+            .dark-section-animated-text { font-size: 2.2rem; }
+            .dark-section-animated-text::before, .dark-section-animated-text::after { font-size: 3rem; }
+            .dark-section-animated-text::before { left: -20px; }
+            .dark-section-animated-text::after { right: -20px; }
+            .portfolio-intro-text { font-size: 0.95rem; padding: 0 1rem; }
+            .portfolio-logos span { font-size: 1.25rem; }
+            .case-study-content h2 { font-size: 2rem; }
+        }
+        @media (max-width: 480px) { /* sm */
+            nav a { font-size: 0.75rem; padding: 0.5rem 0.5rem;}
+            .dark-section-animated-text { font-size: 1.8rem; }
+            .dark-section-animated-text::before, .dark-section-animated-text::after { font-size: 2.5rem; }
+            .dark-section-animated-text::before { left: -15px; }
+            .dark-section-animated-text::after { right: -15px; }
+            .portfolio-intro-text { font-size: 0.9rem; }
+            .portfolio-logos span { font-size: 1.1rem; }
+            .case-study-content h2 { font-size: 1.75rem; }
+            .case-study-content .role { font-size: 1rem; }
+            .case-study-button { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pt-8 md:pt-12">
+
+    <header class="w-full max-w-5xl mx-auto mb-10 md:mb-16 px-4">
+        <nav>
+            <ul class="flex justify-center space-x-2 md:space-x-6">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Portfolio</a></li> <li><a href="resume.html">Resume</a></li> <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center w-full">
+        <section id="portfolio-section-wrapper" class="dark-section w-full">
+            <div class="max-w-5xl mx-auto px-4"> <div id="portfolio-title-container" class="reveal-on-scroll">
+                    <p id="portfolioAnimatedText" class="dark-section-animated-text font-lora">
+                        </p>
+                </div>
+
+                <p class="portfolio-intro-text reveal-on-scroll">
+                    Below are some case studies of my favorite projects over the
+                    years, a few of which have been featured in Behance Interaction
+                    Design, Billboard Magazine, Forbes and more.
+                </p>
+
+                <div class="portfolio-logos reveal-on-scroll">
+                    <span>Billboard</span>
+                    <span>Behance</span>
+                    <span>Forbes</span>
+                    <span>Awwwards</span>
+                </div>
+
+                <div class="case-studies-list mt-12">
+                    <div class="case-study-item reveal-on-scroll">
+                        <div class="case-study-content">
+                            <h2>Raya</h2>
+                            <p class="role">Lead Designer</p>
+                            <p class="description">
+                                Raya is a private community where people come to
+                                connect for dating, networking, and friendship. I
+                                joined the new experience team to expand features
+                                outside of dating globally. I've helped the team
+                                create systems to design and prototype features at
+                                rapid speeds with high quality.
+                            </p>
+                            <div class="case-study-tags">
+                                <span>IOS</span>
+                                <span>Design Systems</span>
+                                <span>Experience Design</span>
+                            </div>
+                            <a href="#" class="case-study-button">View Case Study</a>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="https://placehold.co/600x375/1a1a1a/333?text=RAYA+Project" alt="Raya Project Image" onerror="this.src='https://placehold.co/600x375/1a1a1a/333?text=Image+Not+Found'; this.onerror=null;">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reveal-on-scroll">
+                        <div class="case-study-content">
+                            <h2>Places</h2>
+                            <p class="role">Lead Designer</p>
+                            <p class="description">
+                                Places is an IOS app developed by Raya that helps
+                                you find the perfect destination, anywhere with
+                                recommendations sourced by savvy travelers around
+                                the globe. I lead the early stages from concept to
+                                app launch.
+                            </p>
+                            <div class="case-study-tags">
+                                <span>IOS</span>
+                                <span>Experience Design</span>
+                                <span>Membership</span>
+                            </div>
+                            <a href="#" class="case-study-button">Learn more</a>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="https://placehold.co/600x375/2c2c2c/444?text=PLACES+App" alt="Places App Image" onerror="this.src='https://placehold.co/600x375/2c2c2c/444?text=Image+Not+Found'; this.onerror=null;">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reveal-on-scroll">
+                        <div class="case-study-content">
+                            <h2>The Hub</h2>
+                            <p class="role">Product Designer</p>
+                            <p class="description">
+                                The Hub is a conceptual project aimed at creating a centralized platform
+                                for community engagement and local event discovery. Focused on intuitive UX
+                                and accessible design for all age groups.
+                            </p>
+                            <div class="case-study-tags">
+                                <span>Web Platform</span>
+                                <span>UX/UI Design</span>
+                                <span>Community</span>
+                            </div>
+                            <a href="#" class="case-study-button">Explore Concept</a>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="https://placehold.co/600x375/3a3a3a/555?text=The+Hub+Concept" alt="The Hub Concept Image" onerror="this.src='https://placehold.co/600x375/3a3a3a/555?text=Image+Not+Found'; this.onerror=null;">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="w-full max-w-5xl mx-auto py-10 md:py-16 text-center text-gray-400 text-sm px-4">
+        <p>&copy; <span id="currentYear"></span> Your Name. All rights reserved.</p> </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Portfolio Title Animated Text ---
+            const portfolioAnimatedTextElement = document.getElementById('portfolioAnimatedText');
+            const portfolioTitleTexts = ["Portfolio"];
+            setupTextAnimation(portfolioAnimatedTextElement, portfolioTitleTexts, 100, 50, 20000, false); // erase is false
+
+            // --- General Text Animation Function ---
+            function setupTextAnimation(element, texts, typeSpeed, eraseSpeed, delayBetween, erase = true) {
+                if (!element || texts.length === 0) return;
+                let textIndex = 0;
+                let charIndex = 0;
+                function type() {
+                    if (charIndex < texts[textIndex].length) {
+                        element.textContent += texts[textIndex].charAt(charIndex);
+                        charIndex++;
+                        element.classList.add('visible');
+                        setTimeout(type, typeSpeed);
+                    } else {
+                        if (erase && texts.length > 1) {
+                           setTimeout(doErase, delayBetween);
+                        } else {
+                           element.classList.add('visible'); // Stay visible if not erasing
+                        }
+                    }
+                }
+                function doErase() {
+                    if (charIndex > 0) {
+                        element.textContent = texts[textIndex].substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(doErase, eraseSpeed);
+                    } else {
+                        element.classList.remove('visible');
+                        textIndex = (textIndex + 1) % texts.length;
+                        setTimeout(type, 500);
+                    }
+                }
+                setTimeout(type, 500); // Initial delay
+            }
+
+            // --- Current Year ---
+            const currentYearElement = document.getElementById('currentYear');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+
+            // --- Intersection Observer for Scroll Animations ---
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const observerOptions = {
+                root: null, rootMargin: '0px', threshold: 0.1 // Item is 10% visible
+            };
+            const observer = new IntersectionObserver((entries, observerRef) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // Optional: unobserve after revealing to save resources
+                        // observerRef.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            revealElements.forEach(el => { observer.observe(el); });
+        });
+    </script>
+
+</body>
+</html>

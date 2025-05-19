@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Your Name</title> <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Styles for About Page */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111; /* Dark background for the entire about page */
+            color: #e0e0e0; /* Light text color */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        nav a {
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            color: #aaaaaa; /* Lighter nav links for dark page */
+            transition: color 0.3s ease;
+        }
+        nav a:hover { color: #ffffff; }
+
+        /* Dark Section Styling (used for the main wrapper) */
+        .dark-section {
+            background-color: #111111;
+            color: #e0e0e0;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            width: 100%;
+        }
+
+        /* Styles for the animated quote text, now primarily used within the overlay */
+        .dark-section-animated-text {
+            font-size: 2.5rem; /* Base size, will be overridden for quote */
+            line-height: 1.2;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: relative;
+            font-weight: 500;
+            color: #ffffff; /* Bright white for quote text */
+            white-space: pre-line; /* To respect \n in JavaScript string for line breaks */
+            text-shadow: 0px 1px 6px rgba(0,0,0,0.6); /* For readability over image */
+        }
+        .dark-section-animated-text.visible { opacity: 1; }
+        .dark-section-animated-text::before,
+        .dark-section-animated-text::after {
+            font-family: 'Lora', serif;
+            font-size: 3rem; /* Base size for quotes */
+            color: #f0f0f0; /* Brighter quotes */
+            opacity: 0.7;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%); /* Adjusted for better centering with multi-line text */
+        }
+        /* Quote mark positioning will be fine-tuned in context below */
+
+
+        /* About Section Header (Image + Quote Overlay) */
+        #about-section-wrapper .about-header {
+            display: flex;
+            justify-content: center; /* Center the image-quote block */
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        #about-section-wrapper .about-image-container {
+            position: relative; /* For the overlay */
+            width: 100%;
+            max-width: 550px; /* Max width for the image-quote block */
+            aspect-ratio: 16/10; /* Adjust to match desired look, e.g. 16/9 or 4/3 */
+            background-color: #252525; /* Dark placeholder if image fails */
+            border-radius: 0.5rem;
+            overflow: hidden; /* Crucial for rounded corners with absolute overlay */
+        }
+        #about-section-wrapper .about-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area, might crop */
+            opacity: 0.5;    /* Make image 50% opaque */
+            display: block;  /* Remove extra space below image */
+        }
+        #about-section-wrapper .about-quote-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem; /* Padding inside the overlay */
+            pointer-events: none; /* So text doesn't block image interactions if any */
+        }
+        #about-section-wrapper .about-quote-overlay .about-asterisk {
+            color: #ff4141; /* Bright red color */
+            font-size: 2.8rem;
+            font-family: 'Lora', serif;
+            margin-bottom: 0.25rem; /* Space between asterisk and quote */
+            line-height: 1;
+            font-weight: bold;
+        }
+        /* Specific styling for the quote text within the overlay */
+        #about-section-wrapper .about-quote-overlay .dark-section-animated-text {
+            font-size: 2.8rem; /* Larger font for the quote */
+            line-height: 1.3;
+        }
+        #about-section-wrapper .about-quote-overlay .dark-section-animated-text::before {
+            content: '“';
+            left: -15px; /* Adjust for visual balance */
+            top: calc(50% - 0.1em); /* Fine-tune vertical alignment */
+            font-size: 3.5rem;
+        }
+        #about-section-wrapper .about-quote-overlay .dark-section-animated-text::after {
+            content: '”';
+            right: -15px; /* Adjust for visual balance */
+            top: calc(50% - 0.1em); /* Fine-tune vertical alignment */
+            font-size: 3.5rem;
+        }
+
+
+        /* About Text Columns (below the image/quote header) */
+        #about-section-wrapper .about-text-columns {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* Single column by default */
+            gap: 2rem;
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        #about-section-wrapper .about-text-columns p { margin-bottom: 1rem; }
+        #about-section-wrapper .about-text-columns a {
+            color: #1e90ff; text-decoration: underline;
+        }
+        #about-section-wrapper .about-text-columns a:hover { color: #4eaaff; }
+
+        /* Animation Classes for on-scroll reveal */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive adjustments for About Page */
+        @media (min-width: 768px) { /* md breakpoint */
+            #about-section-wrapper .about-image-container {
+                max-width: 700px; /* Larger image block on desktop */
+            }
+            #about-section-wrapper .about-quote-overlay .dark-section-animated-text {
+                font-size: 3.5rem; /* Larger quote text on desktop */
+            }
+            #about-section-wrapper .about-quote-overlay .about-asterisk {
+                font-size: 3.2rem;
+            }
+            #about-section-wrapper .about-quote-overlay .dark-section-animated-text::before {
+                 left: -25px; font-size: 4.5rem;
+            }
+            #about-section-wrapper .about-quote-overlay .dark-section-animated-text::after {
+                 right: -25px; font-size: 4.5rem;
+            }
+            #about-section-wrapper .about-text-columns {
+                grid-template-columns: repeat(3, 1fr); /* Three columns on larger screens */
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) { /* sm */
+            nav a { font-size: 0.75rem; padding: 0.5rem 0.5rem;}
+            #about-section-wrapper .about-quote-overlay .dark-section-animated-text {
+                font-size: 2rem;
+            }
+            #about-section-wrapper .about-quote-overlay .about-asterisk {
+                font-size: 2.2rem;
+            }
+             #about-section-wrapper .about-quote-overlay .dark-section-animated-text::before {
+                 left: -10px; font-size: 2.8rem;
+            }
+            #about-section-wrapper .about-quote-overlay .dark-section-animated-text::after {
+                 right: -10px; font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pt-8 md:pt-12">
+
+    <header class="w-full max-w-5xl mx-auto mb-10 md:mb-16 px-4">
+        <nav>
+            <ul class="flex justify-center space-x-2 md:space-x-6">
+                <li><a href="index.html#home-section">Home</a></li>
+                <li><a href="index.html#portfolio-section-wrapper">Portfolio</a></li>
+                <li><a href="index.html#resume">Resume</a></li> <li><a href="#">About</a></li> </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center w-full">
+        <section id="about-section-wrapper" class="dark-section w-full">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="about-header reveal-on-scroll">
+                    <div class="about-image-container">
+                        <img src="https://placehold.co/700x438/1a1a1a/444?text=Background+Image" alt="About Me Background" onerror="this.src='https://placehold.co/700x438/1a1a1a/444?text=Image+Not+Found'; this.onerror=null;">
+                        <div class="about-quote-overlay">
+                            <span class="about-asterisk">*</span>
+                            <p id="aboutQuoteAnimatedText" class="dark-section-animated-text font-lora">
+                                </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-text-columns reveal-on-scroll">
+                    <div>
+                        <p>I have over a decade of experience in crafting interfaces for consumer products, and I particularly enjoy leading new product ideas from scratch to market.</p>
+                        <p>My educational background initially focused on illustration, before moving into graphic and web design.</p>
+                    </div>
+                    <div>
+                        <p>I discovered that designing interfaces and creating products brought me greater fulfillment than the creative agency work I had previously engaged in.</p>
+                        <p>Motivated by this realization, I founded a small design studio with a focus on branding, designing, and launching apps from the ground up. Several of these projects not only achieved market success but also garnered industry recognition.</p>
+                    </div>
+                    <div>
+                        <p>Beyond my professional endeavors, I find joy in writing music, creating art, making photographs, and outdoor adventures. Feel free to explore my portfolio for in-depth case studies on my previous work.</p>
+                        <p>Don't hesitate to connect with me on <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a> or reach out via <a href="mailto:youremail@example.com">email</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="w-full max-w-5xl mx-auto py-10 md:py-16 text-center text-gray-400 text-sm px-4">
+        <p>&copy; <span id="currentYear"></span> Your Name. All rights reserved.</p> </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- About Quote Animated Text ---
+            const aboutQuoteAnimatedTextElement = document.getElementById('aboutQuoteAnimatedText');
+            // Added \n for line break, CSS 'white-space: pre-line;' will render it
+            const aboutQuoteTexts = ["Dream all day,\nWork all night."];
+            setupTextAnimation(aboutQuoteAnimatedTextElement, aboutQuoteTexts, 100, 50, 20000, false); // erase is false
+
+            // --- General Text Animation Function ---
+            function setupTextAnimation(element, texts, typeSpeed, eraseSpeed, delayBetween, erase = true) {
+                if (!element || texts.length === 0) return;
+                let textIndex = 0;
+                let charIndex = 0;
+                function type() {
+                    if (charIndex < texts[textIndex].length) {
+                        element.textContent += texts[textIndex].charAt(charIndex);
+                        charIndex++;
+                        element.classList.add('visible');
+                        setTimeout(type, typeSpeed);
+                    } else {
+                        if (erase && texts.length > 1) {
+                           setTimeout(doErase, delayBetween);
+                        } else {
+                           element.classList.add('visible'); // Stay visible if not erasing
+                        }
+                    }
+                }
+                function doErase() {
+                    if (charIndex > 0) {
+                        element.textContent = texts[textIndex].substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(doErase, eraseSpeed);
+                    } else {
+                        element.classList.remove('visible');
+                        textIndex = (textIndex + 1) % texts.length;
+                        setTimeout(type, 500);
+                    }
+                }
+                setTimeout(type, 500); // Initial delay
+            }
+
+            // --- Current Year ---
+            const currentYearElement = document.getElementById('currentYear');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
+
+            // --- Intersection Observer for Scroll Animations ---
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const observerOptions = {
+                root: null, rootMargin: '0px', threshold: 0.1
+            };
+            const observer = new IntersectionObserver((entries, observerRef) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // Optional: unobserve after revealing to save resources
+                        // observerRef.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            revealElements.forEach(el => { observer.observe(el); });
+        });
+    </script>
+
+</body>
+</html>
